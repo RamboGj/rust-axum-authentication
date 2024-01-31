@@ -1,5 +1,6 @@
-## Utils commands for dev
+# IN PROGRESS...
 
+## Utils commands for dev
 - For watching the server
 ```sh
   cargo watch -q -c /src -x run
