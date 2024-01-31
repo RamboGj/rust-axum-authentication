@@ -1,12 +1,22 @@
 #![allow(unused)]
 
 use anyhow::Result;
+use serde_json::json;
 
 #[tokio::test]
 async fn quick_dev() -> Result<()> {
-  let http_client = httpc_test::new_client("http://localhost:8080")?;
+  // HTTP Client
+  let hc = httpc_test::new_client("http://localhost:8080")?;
 
-  http_client.do_get("/hello2/Joao").await?.print().await?;
+  let req_login = hc.do_post(
+    "/api/login",
+    json!({
+      "username" : "demo1",
+      "pwd": "welcomeDDD"
+    }),
+  );
+
+  req_login.await?.print().await?;
 
   Ok(())
 }
