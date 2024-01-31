@@ -12,7 +12,7 @@ async fn quick_dev() -> Result<()> {
     "/api/login",
     json!({
       "username" : "demo1",
-      "pwd": "welcomeDDD"
+      "pwd": "welcome"
     }),
   );
 

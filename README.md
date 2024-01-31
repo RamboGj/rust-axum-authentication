@@ -3,6 +3,7 @@
 - For watching the server
 ```sh
   cargo watch -q -c /src -x run
+  cargo watch -c -x "run"
 ```
 
 - For watching tests
