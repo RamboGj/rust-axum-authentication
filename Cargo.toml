@@ -13,6 +13,8 @@ axum = "0.7"
 tower-http = { version = "0.5.1", features = ["fs", "cors"] }
 tower = { version = "0.4", features = ["full"] }
 tower-cookies = "0.10"
+lazy-regex = "3.1"
+async-trait = "0.1"
 
 [dev-dependencies]
 anyhow = "1"

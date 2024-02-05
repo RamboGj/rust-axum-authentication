@@ -9,15 +9,16 @@ use axum::{
 };
 use model::ModelController;
 use tower_cookies::{CookieManager, CookieManagerLayer};
+use web::mw_auth;
 
 pub use self::error::{Error, Result};
-use serde::Deserialize;
 use tokio::net::TcpListener;
 use tower_http::{
   cors::{Any, CorsLayer},
   services::ServeDir,
 };
 
+mod ctx;
 mod error;
 mod model;
 mod web;
@@ -32,9 +33,12 @@ async fn main() -> Result<()> {
     .allow_headers(vec![HeaderName::from_static("content-type")])
     .allow_origin(Any);
 
+  let routes_apis = web::routes_tickets::routes(mc.clone())
+    .route_layer(middleware::from_fn(web::mw_auth::mw_require_auth));
+
   let routes_all = Router::new()
     .merge(web::routes_login::routes())
-    .nest("/api", web::routes_tickets::routes(mc.clone()))
+    .nest("/api", routes_apis)
     .layer(cors)
     .layer(middleware::map_response(main_response_mapper))
     .layer(CookieManagerLayer::new())
